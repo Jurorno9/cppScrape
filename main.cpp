@@ -111,10 +111,10 @@ int main(int argc, char** argv) {
 	//make output file 
 	std::ofstream out(name.c_str());
 
-	/*****************************************************
-	*		   		FORMATTING TSV FILE					 *
-	* taglist[] below contains the tags in the order they*
-	* appear, feel free to change, add or remove tags    *
+	/******************************************************
+	*		FORMATTING TSV FILE		      *
+	* taglist[] below contains the tags in the order they *
+	* appear, feel free to change, add or remove tags     *
 	******************************************************/
 	std::string tagList[] = {"<title>","<h1>","<h2>","<h3>","<h4>","<h5>","<h6>","<p>" };
 	std::vector<std::string> toWrite(sizeof(tagList) / sizeof(tagList[0]), "");
