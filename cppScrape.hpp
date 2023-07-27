@@ -7,8 +7,13 @@ class Scrape {
 private:
 	std::string returnedHTML = "";//actual recorded responce by external functions 
 public:
+	~Scrape () {
+		delete& TAGS;
+		delete& URL;
+		delete& FILENAME;
+	}
 
-	//Configuration FUnctions 
+	//Configuration Functions 
 	std::string URL = "http://example.com";//The target html pages address.
 	std::string FILENAME = "out.tsv";//filename of new file created by parseByTags().
 	std::vector<std::string> TAGS;//A list of tags to look for on the target webpage 
@@ -57,14 +62,14 @@ public:
 		}
 		return(returnedHTML);
 	}
-	auto parseByTags() {//Find each tag in TAGS, and writes every instance in order of occurence in filename.tsv
+	std::vector<std::string>* parseByTags() {//Find each tag in TAGS, and writes every instance in order of occurence in filename.tsv
 		if (TAGS.size() == 0) {
 			std::cout << "CONFIGURATION ERROR, no tags given, aborting";
-			return;
+			return(new std::vector<std::string>);
 		}
 		if (returnedHTML == "") {
 			std::cout << "CONFIGURATION ERROR, you must sendrequest() before you can call parseByTag(), aborting";
-			return;
+			return(new std::vector<std::string>);
 		}
 		//all lowercase
 		for (char& c : returnedHTML) {
@@ -138,6 +143,7 @@ public:
 		for (int i = 0; i < static_cast<int>(toWrite.size()); i++) {
 			out << toWrite[i] << "\n";
 		}
+		return(&toWrite);
 		out.close();
 	}
 
