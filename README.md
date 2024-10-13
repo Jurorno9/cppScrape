@@ -1,13 +1,12 @@
 
-***INTRODUCTION***
+<h2>Introduction</h2>
 
-cppScrape is a simple cpp library + wrapper ment to be able to scrape webpages and sort by html tags using cURL, format and write to a .tsv file
-By Kian Walsh
-kianlwalsh@gmail.com
+cppScrape is a basic and flexible web scraper made with c++ and curl, Designed to be useable as the most minimal web browser.
+
 
 ***CPP LIBRARY FUNCTIONS***
 
-below are the various functions provided by the object Scrape object. 
+below are the various functions provided by the object `Scrape` . 
 
   - <code>Scrape *<name> = new Scrape()</code> initialize a new scraoe object
 
@@ -25,23 +24,18 @@ below are the various functions provided by the object Scrape object.
 
   - <code>Scrape->TAGS</code> : a string vector containing all html tags, with each item denoting a row in out.tsv <code>parseByHTML()</code> 
 
-  - <code>Scrape->writeRes</code> : internal function, DO NOT USE
+  - <code>Scrape->makeEndTag(std::string tag)</code> : converts any html tag passed to it to a valid closed version of the tag
 
-  - <code>Scrape->makeEndTag(std::string tag)</code> : converts any html tag passed to it to a valid closed version of the tag (kinda useless)
-
-  - <code>Scrape->sendRequest()</code> : sends a cURL request to the webpage at URL, stores the responce value in the scrap object. returns the unedited html responce as a string
+  - <code>Scrape->sendRequest()</code> : sends a GET request to the webpage at `URL`, stores the response. returns the raw response as a string
 
   - <code>Scrape->parseByTags()</code> : sorts the internal responce value, and makes a .tsv file with
 
       1) filename as defined by FILENAME value
-      2) tsv files have /t characters seperating values in a row 
-      3) each row will store values of its corresponding tag in TAGS (ie a h1 tag at index 2 will turn row 2 of the tsv file into a h2 row
-      4) each column will contain a instance of the tag. (ie : {text from header1 on page} /t {text from a different header on page}
+      2) each row will store values of its corresponding tag in TAGS (ie a h1 tag at index 2 will turn row 2 of the tsv file into a h2 row
+      3) each column will contain a instance of the tag. (ie : {text from header1 on page} /t {text from a different header on page}
 
 
-***CPP LIBRARY USAGE***
-
-depends on curl and zlib. I designed this to be easy for others to implement uses for, download and placing in a project folder or $PATH, then add <code>#include cppScrape.hpp"</code> to the top of your cpp file.a basic setup is as follows:
+***CPP LIBRARY EXAMPLE USAGE***
 
 <code>#include "cppScrape.hpp"
 int main(){
@@ -54,8 +48,8 @@ int main(){
 </code>
 
 ***WRAPPER EXECUTABLE USAGE***
-If you want to emulate the behavoir of the older version, or to be able to simply run this as a command instead, download the included main.hpp as well as your c++ compiler of choice (I have used msvc and g++) and run the following <code>g++ main.cpp -lcurl</code> to build a executable for your system, than use the following syntax:
+If you want to run this utility as a command, download and compile the included main.hpp, then usage of the executable is as follows:
 
-  - ./cppScrape {insert url} : will use default <code>TAGS</code> and <code>FILENAME</code> to generate out.tsv from the given url
+  - `./cppScrape <url>` : will use default <code>TAGS</code> and <code>FILENAME</code> to generate out.tsv from the given url
     
-  - ./cppScrape {insert url}, {insert html tags} : will generate a out.tsv from the given url and format out.tsv using the given html tags
+  - `./cppScrape <url>, <html tags>` : will generate a out.tsv from the given url and format out.tsv using the given html tags
